@@ -13,7 +13,7 @@ def get_appointment(appointment_id):
     cursor = connection.cursor()
     data = cursor.execute("""
                       select * from appointments where id=?
-                      """,("APT001",))
+                      """,(appointment_id,))
     details = data.fetchall()
     apponitment_details = details[0]
     return {"Patient Name":apponitment_details[1], "Doctor Name":apponitment_details[4], "Appointment Time":apponitment_details[5]}
