@@ -8,7 +8,8 @@ def home():
     return {"message":"Welcome to my app"}
 
 @app.get("/appointment/{appointment_id}")
-def get_appointment(appointment_id):
+def get_appointment(appointment_id: str):
+    appointment_id = appointment_id.replace("-", "")
     connection = sqlite3.Connection("appointments.db")
     cursor = connection.cursor()
     data = cursor.execute("""
