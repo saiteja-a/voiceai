@@ -1,6 +1,11 @@
 from fastapi import FastAPI
 import sqlite3
 
+def connectdb():
+    connection = sqlite3.Connection("appointments.db")
+    cursor = connection.cursor()
+    return cursor
+    
 app = FastAPI()
 
 @app.get("/")
@@ -10,12 +15,22 @@ def home():
 @app.get("/appointment/{appointment_id}")
 def get_appointment(appointment_id: str):
     appointment_id = appointment_id.replace("-", "")
-    connection = sqlite3.Connection("appointments.db")
-    cursor = connection.cursor()
     data = cursor.execute("""
                       select * from appointments where id=?
                       """,(appointment_id,))
     details = data.fetchall()
     apponitment_details = details[0]
     return {"Patient Name":apponitment_details[1], "Doctor Name":apponitment_details[4], "Appointment Time":apponitment_details[5]}
+
+@app.get("/all_doctor")
+def get_docs():
+    cursor = connectdb()
+    data = cursor.execute("""
+                   select * from DocDetails
+                   """)
+    doc_data = data.fetchall()
+    return doc_data
+    
+    
+
     
