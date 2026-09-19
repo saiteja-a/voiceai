@@ -62,7 +62,7 @@ def book_appointment(request: DocSlot):
                    """,(appointment_id,req_date,req_doc_id))
     connection.commit()
     connection.close()
-    return JSONResponse(status_code=200, content="Appointment booked successfully")
+    return JSONResponse(status_code=200, content=f"Appointment booked successfully with appointment ID as {appointment_id}")
     
     
     
