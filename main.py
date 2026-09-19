@@ -5,6 +5,7 @@ from typing import Annotated, Literal
 from fastapi.responses import JSONResponse
 import random
 import string
+import os
 
 def generate_appointment_code():
     return f"APT-{random.randint(1000, 9999)}"
@@ -62,6 +63,7 @@ def book_appointment(request: DocSlot):
                    """,(appointment_id,req_date,req_doc_id))
     connection.commit()
     connection.close()
+    print("DB location:", os.path.abspath("appointments.db"))
     return JSONResponse(status_code=200, content=f"Appointment booked successfully with appointment ID as {appointment_id}")
     
     
