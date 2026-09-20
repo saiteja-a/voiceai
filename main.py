@@ -78,6 +78,7 @@ def book_appointment(request: DocSlot):
                    update "DocSlots" set "{req_slot}" = %s where date = %s and doc_id = %s
                    """,(appointment_id,req_date,req_doc_id))
     connection.commit()
+    print("Rows updated:", cursor.rowcount)
     connection.close()
     # print("DB location:", os.path.abspath("appointments.db"))
     return JSONResponse(status_code=200, content=f"Appointment booked successfully with appointment ID as {appointment_id}")
