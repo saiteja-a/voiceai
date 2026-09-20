@@ -6,13 +6,7 @@ from fastapi.responses import JSONResponse
 import random
 import string
 import os
-import psycopg2
 
-@app.get("/test-db")
-def test_db():
-    connection = psycopg2.connect(os.getenv("DATABASE_URL"))
-    connection.close()
-    return {"message": "PostgreSQL connected successfully"}
 
 def generate_appointment_code():
     return f"APT-{random.randint(1000, 9999)}"
